@@ -1,9 +1,10 @@
-extends Node3D
+class_name Building extends StaticBody3D
 
 @export var team: Singleton.Team = Singleton.Team.BLUE
 @export var building_type: building_types = building_types.MAIN_BUILDING
-@export var spawning_unit: Worker = null
-@export var spawning_img: Image = null
+@export var spawning_unit: PackedScene = preload("res://Scenes/worker.tscn")
+@export var unit_img: Texture = preload("res://Assets/GUI/MainBuildingImg.jpg")
+@export var spawning_img: Texture = null
 @export_category("Building Stats")
 @export var cost: int = 200
 @export var max_units: int = 4

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://clqu86xw65egc"]
+[gd_scene load_steps=8 format=3 uid="uid://clqu86xw65egc"]
 
+[ext_resource type="Script" path="res://Scripts/Buildings/main_building.gd" id="1_lgaqp"]
 [ext_resource type="PackedScene" uid="uid://choirg388tbko" path="res://Assets/Build2/Building2.glb" id="1_mwvy3"]
-[ext_resource type="Script" path="res://Scripts/building.gd" id="1_oqcb1"]
+[ext_resource type="Texture2D" uid="uid://bb8sf1tl1kjka" path="res://Assets/GUI/WorkerImg.jpg" id="2_byidx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_4cdgx"]
 size = Vector3(0.15, 1, 0.15)
@@ -19,8 +20,10 @@ data = PackedVector3Array(1.5, 0.2887, -1, 1.5, -0.2887, -1, 1.5, -0.2887, 0, 1.
 [node name="MainBuilding" type="StaticBody3D" groups=["units"]]
 collision_layer = 4
 collision_mask = 65
-script = ExtResource("1_oqcb1")
-team = 0
+script = ExtResource("1_lgaqp")
+spawning_img = ExtResource("2_byidx")
+cost = 500
+health = 400.0
 
 [node name="Building2" parent="." instance=ExtResource("1_mwvy3")]
 
@@ -36,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.239111, 2.01015)
 [node name="SelectionRing" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0.365827)
+visible = false
 mesh = SubResource("TorusMesh_1fpga")
 
 [node name="BuildArea" type="Area3D" parent="."]

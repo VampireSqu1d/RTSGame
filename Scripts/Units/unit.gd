@@ -1,22 +1,25 @@
-class_name Worker extends RigidBody3D
+class_name Unit extends RigidBody3D
 
 @export var team: Singleton.Team = Singleton.Team.BLUE
+@export var unit_type: Singleton.Unit = Singleton.Unit.WORKER
+@export var unit_img: Texture = preload("res://Assets/GUI/WorkerImg.jpg")
+@export_category("Unit Stats")
 @export var speed: float = 0
+@export var health: float = 100
+@export var damage: float = 5
+@export var cost: int = 50
 @export var vel: Vector3
 var state_machine: AnimationNodeStateMachinePlayback
 
 
 enum states {IDLE, WALKING, ATTACKING, MINING, BUILDING}
 var current_state = states.IDLE
-
+var force_accel: = 5
 @onready var animation_tree: AnimationTree = %AnimationTree
 @onready var selection_ring: MeshInstance3D = %SelectionRing
 @onready var navigation_agent_3d: NavigationAgent3D = %NavigationAgent3D
 @onready var ray_cast_3d: RayCast3D = %RayCast3D
 @onready var armature: Node3D = $StoneUnit/Armature
-
-
-
 
 
 

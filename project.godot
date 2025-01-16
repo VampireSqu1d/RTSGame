@@ -25,6 +25,14 @@ Singleton="*res://Scripts/Singleton.gd"
 window/size/viewport_width=1600
 window/size/viewport_height=900
 
+[file_customization]
+
+folder_colors={
+"res://Scripts/Buildings/": "red",
+"res://Scripts/GUI/": "green",
+"res://Scripts/Units/": "orange"
+}
+
 [input]
 
 select={

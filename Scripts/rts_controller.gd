@@ -89,8 +89,8 @@ func get_unit_under_mouse() -> Node3D:
 	if result_unit:
 		print(result_unit)
 	#var unit: Worker = result_unit["collider"]
-	if result_unit and "team" in result_unit.collider and result_unit["collider"].team == team:
-		var selected_unit =  result_unit.collider
+	if result_unit and "team" in result_unit["collider"] and result_unit["collider"].team == team:
+		var selected_unit =  result_unit["collider"]
 		return selected_unit
 	return null
 
@@ -120,11 +120,11 @@ func update_current_units(new_units) -> void:
 
 
 func move_selected_untis() -> void: 
-	var result = mouse_raycast(0b110)# 0b10111
+	var result = mouse_raycast(0b10111)# 0b10111 this one is for moving the workers #0b110 this one is for selecting the buildings
 	unit_position_index = 0
 	if selected_units.size() > 0:
-		if result.collider.is_in_group("surface"):
-			for unit: Worker in selected_units:
+		if result["collider"].is_in_group("surface"):
+			for unit: Unit in selected_units:
 				position_unit(unit, result)
 
 
@@ -203,7 +203,7 @@ func create_units_rect_position(target_pos: Vector3, units_num: int) -> Array[Ve
 	return positions_list
 
 
-func position_unit(unit: Worker, result):
+func position_unit(unit: Unit, result):
 	target_position_list = create_units_rect_position(result.position, len(selected_units))
 	unit.move_to(target_position_list[unit_position_index])
 	unit_position_index += 1
