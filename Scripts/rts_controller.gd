@@ -124,8 +124,11 @@ func move_selected_untis() -> void:
 	unit_position_index = 0
 	if selected_units.size() > 0:
 		if result["collider"].is_in_group("surface"):
-			for unit: Unit in selected_units:
-				position_unit(unit, result)
+			for unit: Node3D in selected_units:
+				if unit is Unit:
+					position_unit(unit, result)
+				elif unit is Building:
+					pass
 
 
 func get_units_in_box(top_left: Vector2, bottom_right: Vector2) -> Array[Node3D]:

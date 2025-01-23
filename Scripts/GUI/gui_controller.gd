@@ -5,8 +5,14 @@ extends Control
 @onready var building_grid: GridContainer = %BuildingGrid
 @onready var option_button: TextureButton = $SelectionBar/BuildingGrid/OptionButton
 @onready var option_button_2: TextureButton = $SelectionBar/BuildingGrid/OptionButton2
+@onready var minerals_label: Label = %MineralsLabel
 
-var unit_img_button: PackedScene = preload("res://Scenes/unit_img_button.tscn")
+@export var minerals: int = 5000:
+	set(value):
+		minerals = value
+		minerals_label.text = str(minerals)
+
+var unit_img_button: PackedScene = preload("res://Scenes/GUI/unit_img_button.tscn")
 
 const main_building_img: CompressedTexture2D = preload("res://Assets/GUI/MainBuildingImg.jpg")
 const unit_building_img: CompressedTexture2D = preload("res://Assets/GUI/UnitBuildingImg.jpg")
@@ -17,6 +23,11 @@ var current_selected_units: Array = []
 
 var option_button_unit
 var option_button_2_unit
+
+
+func _ready() -> void:
+	minerals_label.text = str(minerals)
+
 
 func _on_rts_controller_units_selected(units: Array) -> void:
 	current_selected_units = units
@@ -41,15 +52,14 @@ func show_buttons(active_buttons_num) -> void:
 	hide_buttons()
 	for i in range(active_buttons_num):
 		building_grid.show()
-	
 
 
 func _on_option_button_pressed() -> void:
-	pass # Replace with function body.
+	activate_button(unit_img_button)
 
 
 func _on_option_button_2_pressed() -> void:
-	pass # Replace with function body.
+	activate_button(unit_img_button)
 
 
 func set_button_images() -> void:
@@ -69,3 +79,18 @@ func set_button_images() -> void:
 		option_button_2.texture_normal = unit_building_img
 	elif current_selected_units[0] is Warrior:
 		show_buttons(0)
+
+
+func activate_button(button) -> void:
+	var unit_button_ins = button.instantiate()
+	var selected_unit = current_selected_units[0]
+	if unit_button_ins is Building:
+		var unit_cost = unit_button_ins.cost
+		if minerals >= unit_cost:
+			minerals -= unit_cost
+			selected_unit.create_structure(unit_button_ins)
+	elif unit_button_ins is Unit:
+		var unit_cost = unit_button_ins.cost
+		if minerals >= unit_cost and selected_unit.current_created_units != selected_unit.max_units:
+			minerals -= unit_cost
+			selected_unit.add_unit_to_spawn(unit_button_ins)

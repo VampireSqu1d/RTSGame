@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://uewqp3n7k41i"]
+[gd_scene load_steps=21 format=3 uid="uid://uewqp3n7k41i"]
 
 [ext_resource type="Script" path="res://Scripts/rts_controller.gd" id="1_on3iy"]
 [ext_resource type="Material" uid="uid://d0i3q6j44jwns" path="res://Assets/Materials/FloorMat.tres" id="1_rmkwj"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cligqukgffx0t" path="res://Assets/GUI/SelectionBar.png" id="7_akrgk"]
 [ext_resource type="Texture2D" uid="uid://bb8sf1tl1kjka" path="res://Assets/GUI/WorkerImg.jpg" id="8_6xyt6"]
 [ext_resource type="Texture2D" uid="uid://djhyxgkv3fwth" path="res://Assets/GUI/MainBuildingImg.jpg" id="12_mx006"]
+[ext_resource type="Texture2D" uid="uid://chdqssq55t7ta" path="res://Assets/GUI/rock.png" id="14_sng1s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2hpyr"]
 sky_top_color = Color(0.317647, 0.454902, 0.745098, 1)
@@ -343,6 +344,28 @@ offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 0
 columns = 15
+
+[node name="MineralsContainer" type="VBoxContainer" parent="HUD/GUIController"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -173.0
+offset_bottom = 97.0
+grow_horizontal = 0
+
+[node name="MineralsTextureRect" type="TextureRect" parent="HUD/GUIController/MineralsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("14_sng1s")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MineralsLabel" type="Label" parent="HUD/GUIController/MineralsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0000"
+horizontal_alignment = 1
 
 [connection signal="units_selected" from="RTSController" to="HUD/GUIController" method="_on_rts_controller_units_selected"]
 [connection signal="pressed" from="HUD/GUIController/SelectionBar/BuildingGrid/OptionButton" to="HUD/GUIController" method="_on_option_button_pressed"]
